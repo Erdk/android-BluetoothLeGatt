@@ -47,6 +47,7 @@ public class BluetoothLeService extends Service {
     private String mBluetoothDeviceAddress;
     private BluetoothGatt mBluetoothGatt;
     private int mConnectionState = STATE_DISCONNECTED;
+    private boolean alarm = false;
 
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
@@ -282,6 +283,21 @@ public class BluetoothLeService extends Service {
         mBluetoothGatt.readCharacteristic(characteristic);
     }
 
+    public void writeCharacteristic(BluetoothGattCharacteristic characteristic) {
+        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
+
+        if (!alarm) {
+            characteristic.setValue(new byte[]{1});
+            alarm = true;
+        } else {
+            characteristic.setValue(new byte[]{0});
+            alarm = false;
+        }
+        mBluetoothGatt.writeCharacteristic(characteristic);
+    }
     /**
      * Enables or disables notification on a give characteristic.
      *

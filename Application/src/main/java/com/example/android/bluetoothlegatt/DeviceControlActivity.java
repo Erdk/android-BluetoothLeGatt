@@ -134,7 +134,12 @@ public class DeviceControlActivity extends Activity {
                                         mNotifyCharacteristic, false);
                                 mNotifyCharacteristic = null;
                             }
-                            mBluetoothLeService.readCharacteristic(characteristic);
+
+                            if (characteristic.getUuid().toString().equals("00002a06-0000-1000-8000-00805f9b34fb")) {
+                                mBluetoothLeService.writeCharacteristic(characteristic);
+                            } else {
+                                mBluetoothLeService.readCharacteristic(characteristic);
+                            }
                         }
                         if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
                             mNotifyCharacteristic = characteristic;
