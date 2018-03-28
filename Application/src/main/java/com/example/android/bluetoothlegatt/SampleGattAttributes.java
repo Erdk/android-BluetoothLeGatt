@@ -45,7 +45,7 @@ public class SampleGattAttributes {
 
         // 1802 - Immediate Alert
         // 1803 - Link Loss
-        attributes.put("00002a06-0000-1000-8000-00805f9b34fb", "Alert Level ");
+        attributes.put("00002a06-0000-1000-8000-00805f9b34fb", "Alert Level");
     }
 
     public static String lookup(String uuid, String defaultName) {
